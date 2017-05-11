@@ -1,24 +1,48 @@
-.App {
+
+.modal{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0,0,0,0.8);
+  color: #FFF;
+  padding: 2em;
   text-align: center;
+  z-index: 1;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.close-btn{
+  font-size: 2em;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.modal-content{
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  animation-name: animatetop;
+  animation-duration: 1.2s;
+  z-index: -1;
 }
 
-.App-intro {
-  font-size: large;
+.modal-btn{
+  width: 200px;
+  margin-top: 20px;
+  border: 3px solid black;
+  cursor: pointer;
+  display: inline-block;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.modal-btn:hover{
+  opacity: 0.8;
+}
+
+@keyframes animatetop{
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
