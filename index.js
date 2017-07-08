@@ -17,26 +17,10 @@ app.get('/imgList',function(req,res){
 				imgs.push(files[i]);
 			}
 		}
+		console.log(imgs)
 		res.send({'imgs':imgs});
 	});
 	
 })
 
-http.createServer(app).listen(80);
-console.log('listening')
-
-//app.listen(3000, ()=>console.log('listening on port 3000'));
-
-
-/*
-use this for http request
-{
-	Japan2016: [],
-	SF: [],
-	LA: [],
-	Japn2017: []
-
-}
-
-
- */
+app.listen(3000, ()=>console.log('listening on port 3000'));

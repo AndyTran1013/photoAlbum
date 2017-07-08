@@ -1,23 +1,34 @@
 import React from 'react';
 import './App.css';
 
-/*ToDo: Resize modal on window update? or just dump all styles in CSS*/
-
 class Modal extends React.Component {
+  componentDidMount(){
+    document.addEventListener("keydown", this.props.onKeyDown)
+  }
+
   render() {
     let modalStyle={
       display: this.props.display || "none"
     };
 
     return (
-      <div className="modal" style={modalStyle} onClick={this.props.onClick}>
+      <div 
+        className="modal" 
+        style={modalStyle} 
+        onClick={this.props.onClick}
+      >
         <span
           className="close-btn"
-          onClick={this.props.onClick}>
+          onClick={this.props.onClick}
+        >
           X
         </span>
         
-       <img className="modal-content" src={this.props.imgUrl} alt={this.props.imgUrl}/>
+        <img 
+          className="modal-img" 
+          src={this.props.imgUrl} alt=''
+        />
+
       </div>
     );
   }
@@ -27,7 +38,7 @@ class ModalButtons extends React.Component {
   render() {
     return (
       <li>
-       <img 
+        <img 
           className="modal-btn"
           src={this.props.content} 
           alt={this.props.content}
@@ -44,7 +55,8 @@ class App extends React.Component {
     this.state={
       boxes: [],
       display: "none",
-      imgPath: ""
+      imgPath: "",
+      active: {}
     };
   }
 
@@ -58,8 +70,6 @@ class App extends React.Component {
     });
     myRequest.send(null);
 
-    //used for testing
-    //this.setState({boxes: ['20160409_194910.jpg','20160410_070313.jpg']})
   }
 
   showModal(e, imgUrl) {
@@ -69,39 +79,53 @@ class App extends React.Component {
     });
   }
 
-  closeModal(e) {
-    if (e.target.className !== "modal-content") {
-      this.setState({
-        display: "none",
-        imgPath: ""
-      });
+  modalClickHandler(e) {
+    if (e.target.className !== "modal-img") {
+      this.closeModal();
     }
   }
 
+  modalKeyHandler(e){
+    if (e.keyCode === 27){
+      this.closeModal();
+    }
+  }
+
+  closeModal(){
+    this.setState({
+        display: "none",
+        imgPath: ""
+    });
+  }
+
   render() {
+    let btnBoxes;
 
-    const btnBoxes=this.state.boxes.map((value, index)=>{
-      return (
-        <ModalButtons 
-          onClick={(e) => this.showModal(e,value)}
-          key={index}
-          content={'./images/thumbnails/' + value}
-        />
-      )
-    })
-
+    if (Object.keys(this.state.boxes).length > 0){
+      btnBoxes = this.state.boxes.map((value, index)=>{
+        return (
+          <ModalButtons 
+            onClick={(e) => this.showModal(e,value)}
+            key={index}
+            content={'./images/thumbnails/' + value}
+          />
+        )
+      })
+    }
 
     return (
-      <div>
+      <div className="container">
         <Modal
           display={this.state.display}
-          onClick={e => this.closeModal(e)}
+          onClick={e => this.modalClickHandler(e)}
+          onKeyDown={e => this.modalKeyHandler(e)}
           imgUrl={this.state.imgPath}
         />
         <ul className='list-inline'>{btnBoxes}</ul>
       </div>
     );
   }
+
 }
 
 export default App;
