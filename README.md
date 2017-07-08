@@ -9,3 +9,5 @@ A project that I was working on using NodeJS as a backend to read images and thu
 
 ## To Do...
 1. Add a Nav bar to separate pictures by category (which will be divided up by subfolders in the backend)
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app)
