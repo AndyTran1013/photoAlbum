@@ -29,7 +29,7 @@ console.log('listening')
 
 
 /*
-use this for http request
+use this format for http request (names are driven by subfolders)
 {
 	Japan2016: [],
 	SF: [],
